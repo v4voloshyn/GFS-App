@@ -4,13 +4,13 @@ const BASE_URL = 'https://api.wisey.app/api/v1';
 
 export const getToken = async () => {
   try {
-    const token = await axios.get(`${BASE_URL}/auth/anonymous`, {
+    const response = await axios.get(`${BASE_URL}/auth/anonymous`, {
       params: {
         platform: 'subscriptions',
       },
     });
 
-    return token.data.token;
+    return response.data.token;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error);
@@ -27,13 +27,13 @@ export const fetchCourses = async () => {
   try {
     const token = await getToken();
 
-    const data = await axios.get(`${BASE_URL}/core/preview-courses`, {
+    const response = await axios.get(`${BASE_URL}/core/preview-courses`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    return data;
+    return response.data.courses;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error);
@@ -50,7 +50,7 @@ export const fetchCourseById = async (courseId: number | string) => {
   try {
     const token = await getToken();
 
-    const data = await axios.get(
+    const response = await axios.get(
       `${BASE_URL}/core/preview-courses/${courseId}`,
       {
         headers: {
@@ -59,7 +59,7 @@ export const fetchCourseById = async (courseId: number | string) => {
       }
     );
 
-    return data;
+    return response.data;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error);
