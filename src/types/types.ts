@@ -24,3 +24,8 @@ export interface ICourseItem {
   rating: number;
   meta: IMeta;
 }
+
+export type CourseItemPreview = Pick<
+  ICourseItem,
+  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating'
+> & { meta: Pick<IMeta, 'skills'> };

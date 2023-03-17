@@ -1,16 +1,11 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ICourseItem, IMeta } from '../../types/types';
+import { CourseItemPreview, IMeta } from '../../types/types';
 import { Button } from '../UI/button/Button.component';
 
 import './CourseItem.scss';
 
-type CourseItemProps = Pick<
-  ICourseItem,
-  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating'
-> & { meta: Pick<IMeta, 'skills'> };
-
-export const CourseItem: FC<CourseItemProps> = ({
+export const CourseItem: FC<CourseItemPreview> = ({
   id,
   title,
   previewImageLink,
