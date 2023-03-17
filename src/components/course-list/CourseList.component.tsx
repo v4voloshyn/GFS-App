@@ -16,9 +16,7 @@ export const CourseList: FC = () => {
 
   return (
     <div className="course-list">
-      <h1 className="course-list__title" style={{ textAlign: 'center' }}>
-        Course List
-      </h1>
+      <h1 className="course-list__title">Course List</h1>
 
       <div className="courses">
         {paginatedCourses.map((course) => (
