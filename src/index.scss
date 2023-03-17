@@ -3,6 +3,7 @@
   --color-primary: #41c1f4;
   --color-text-primary: rgba(0, 0, 0, 0.87);
   --color-bg-main: #F8F8F8;
+  --color-bg-active: #FFE302;
   --color-bg-hover: #FFE302;
   --color-bg-disabled: #B4B4B4;
   --h1-size: 32px;
@@ -24,6 +25,14 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul,
+ol,
+li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 h1 {
