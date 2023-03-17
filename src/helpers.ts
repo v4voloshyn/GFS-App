@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://api.wisey.app/api/v1';
 
-export const getToken = async () => {
+const getToken = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/auth/anonymous`, {
       params: {
