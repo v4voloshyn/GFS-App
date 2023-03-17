@@ -56,7 +56,9 @@ export const CourseItem: FC<CourseItemProps> = ({
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
-            <div className="card-rating">Rating: {rating}/5</div>
+            <div className="card-rating">
+              {rating ? `Rating: ${rating}/5` : 'Not rated'}
+            </div>
           </div>
         </div>
       </div>
