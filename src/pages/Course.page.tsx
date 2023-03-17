@@ -1,22 +1,11 @@
-import { FC, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { fetchCourseById } from '../helpers';
-
-// interface CourseProps {}
+import { FC } from 'react';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import { ICourseItem } from '../types/types';
 
 export const Course: FC = () => {
-  const { id } = useParams();
-  const fakeId = 'b36ee0ce-6ddf-4fe3-bcd8-af6affc4e4f2';
+  const courseData = useLoaderData() as ICourseItem;
+  const navigation = useNavigation();
+  console.log('STATE', navigation.state);
 
-  useEffect(() => {
-    fetchCourseById(fakeId)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }, [id]);
-  return (
-    <div>
-      Course Page {id}
-      <Link to="/">Home page</Link>
-    </div>
-  );
+  return <div>Course Page {courseData.id}</div>;
 };
