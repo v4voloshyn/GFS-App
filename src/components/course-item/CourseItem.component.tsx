@@ -36,7 +36,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
         </div>
         <div className="card-footer">
           <Button
-            buttonText="Enroll course"
+            buttonText="Watch lessons"
             isLoading={isCourseItemLoading}
             onClick={() => handleClick(id)}
           />
