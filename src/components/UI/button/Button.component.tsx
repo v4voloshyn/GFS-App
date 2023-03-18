@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import './Button.scss';
 
 interface ButtonProps {
-  buttonText: string;
+  buttonText: string | ReactNode;
   onClick: () => void;
 }
 
