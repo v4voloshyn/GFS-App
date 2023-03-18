@@ -106,4 +106,11 @@
 
 .card-rating {
 	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.star {
+	color: #FFE302;
 }

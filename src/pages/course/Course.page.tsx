@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
-import { FaBook, FaLock, FaPlayCircle } from 'react-icons/fa';
 import { ICourseItem } from '../../types/types';
 import { Spinner } from '../../components/spinner/Spinner.component';
 import { LessonsList } from '../../components/lessons-list/LessonsList.component';
