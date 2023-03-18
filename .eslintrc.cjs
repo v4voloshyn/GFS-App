@@ -24,5 +24,6 @@ module.exports = {
     'react/function-component-definition': 0,
     'import/prefer-default-export': 0,
     'no-console': 0, // Remove before deploy
+    'react/require-default-props': 0,
   },
 };

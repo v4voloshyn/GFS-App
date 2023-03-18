@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CourseItemPreview, IMeta } from '../../types/types';
+import { CourseItemPreview } from '../../types/types';
+import { SkillsList } from '../skills-list/SkillsList.component';
 import { Button } from '../UI/button/Button.component';
 
 import './CourseItem.scss';
@@ -13,20 +14,12 @@ export const CourseItem: FC<CourseItemPreview> = ({
   rating,
   meta: { skills = [] },
 }) => {
+  const [isCourseItemLoading, setIsCourseItemLoading] = useState(false);
   const navigate = useNavigate();
 
-  const renderSkills = (skillList: IMeta['skills'] = []) => {
-    if (!skillList.length) {
-      return <div>Secret inside the book</div>;
-    }
-    return skillList.map((skill) => {
-      return (
-        <div className="skill-item" key={skill}>
-          <span className="skill-status" />
-          <span className="skill-text">{skill}</span>
-        </div>
-      );
-    });
+  const handleClick = (courseId: string): void => {
+    setIsCourseItemLoading(true);
+    navigate(`course/${courseId}`);
   };
 
   return (
@@ -39,15 +32,13 @@ export const CourseItem: FC<CourseItemPreview> = ({
           <div className="card-title">
             <h4>{title}</h4>
           </div>
-          <div className="card-skill__wrapper skill">
-            Skills:
-            <div className="skill-list">{renderSkills(skills)}</div>
-          </div>
+          <SkillsList skillsList={skills} />
         </div>
         <div className="card-footer">
           <Button
-            buttonText="Enroll course"
-            onClick={() => navigate(`course/${id}`)}
+            buttonText="Watch lessons"
+            isLoading={isCourseItemLoading}
+            onClick={() => handleClick(id)}
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
