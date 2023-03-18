@@ -1,27 +1,40 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FC, useState } from 'react';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
-import { ICourseItem } from '../../types/types';
+import { CourseItemPreview } from '../../types/types';
 
 import { CourseItem } from '../course-item/CourseItem.component';
 import { Pagination } from '../pagination/Pagination.component';
 import './CourseList.scss';
 
 export const CourseList: FC = () => {
-  const courses = useLoaderData() as ICourseItem[];
+  const courses = useLoaderData() as CourseItemPreview[];
+  console.log('COURSES', courses);
 
   const [paginatedCourses, setPaginatedCourses] =
-    useState<ICourseItem[]>(courses);
+    useState<CourseItemPreview[]>(courses);
 
   return (
     <div className="course-list">
       <h1 className="course-list__title">Course List</h1>
 
       <div className="courses">
-        {paginatedCourses.map((course) => (
-          <CourseItem key={course.id} {...course} />
-        ))}
+        {paginatedCourses.map((course) => {
+          const { id, title, lessonsCount, meta, previewImageLink, rating } =
+            course;
+          return (
+            <CourseItem
+              key={id}
+              id={id}
+              title={title}
+              previewImageLink={previewImageLink}
+              rating={rating}
+              lessonsCount={lessonsCount}
+              meta={meta}
+            />
+          );
+        })}
       </div>
       <Pagination
         itemsPerPage={4}

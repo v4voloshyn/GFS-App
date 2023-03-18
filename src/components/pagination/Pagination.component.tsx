@@ -1,13 +1,15 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
-import { ICourseItem } from '../../types/types';
+import { CourseItemPreview, ICourseItem } from '../../types/types';
 
 import './Pagination.scss';
 
 interface PaginationProps {
   itemsPerPage: number;
-  items: ICourseItem[];
-  setPaginatedCourses: React.Dispatch<React.SetStateAction<ICourseItem[]>>;
+  items: CourseItemPreview[];
+  setPaginatedCourses: React.Dispatch<
+    React.SetStateAction<CourseItemPreview[]>
+  >;
 }
 
 export const Pagination: FC<PaginationProps> = ({
