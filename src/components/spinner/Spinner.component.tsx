@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import './Spinner.scss';
 
-export interface SpinnerProps {
+interface SpinnerProps {
   size?: 'small' | 'fullscreen';
 }
 

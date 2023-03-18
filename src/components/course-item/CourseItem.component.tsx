@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CourseItemPreview } from '../../types/types';
 import { SkillsList } from '../skills-list/SkillsList.component';
@@ -14,7 +14,13 @@ export const CourseItem: FC<CourseItemPreview> = ({
   rating,
   meta: { skills = [] },
 }) => {
+  const [isCourseItemLoading, setIsCourseItemLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleClick = (courseId: string): void => {
+    setIsCourseItemLoading(true);
+    navigate(`course/${courseId}`);
+  };
 
   return (
     <div className="course-card card">
@@ -31,7 +37,8 @@ export const CourseItem: FC<CourseItemPreview> = ({
         <div className="card-footer">
           <Button
             buttonText="Enroll course"
-            onClick={() => navigate(`course/${id}`)}
+            isLoading={isCourseItemLoading}
+            onClick={() => handleClick(id)}
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
