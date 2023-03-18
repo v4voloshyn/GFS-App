@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { CourseItemPreview } from '../../types/types';
 import { SkillsList } from '../skills-list/SkillsList.component';
@@ -43,7 +44,14 @@ export const CourseItem: FC<CourseItemPreview> = ({
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
             <div className="card-rating">
-              {rating ? `Rating: ${rating}/5` : 'Not rated'}
+              {rating ? (
+                <>
+                  Rating {rating}/5
+                  <FaStar className="star" />
+                </>
+              ) : (
+                'Not rated'
+              )}
             </div>
           </div>
         </div>
