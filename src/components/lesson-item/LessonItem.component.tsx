@@ -7,9 +7,15 @@ interface LessonItemProps {
   title: VideoLesson['title'];
   status: VideoLesson['status'];
   order: number;
+  duration: VideoLesson['duration'];
 }
 
-export const LessonItem: FC<LessonItemProps> = ({ status, title, order }) => {
+export const LessonItem: FC<LessonItemProps> = ({
+  status,
+  title,
+  order,
+  duration,
+}) => {
   const lockedStatus = status === 'locked';
 
   return (
@@ -20,7 +26,8 @@ export const LessonItem: FC<LessonItemProps> = ({ status, title, order }) => {
           {order + 1}. {title}
         </div>
         <div className="lesson__description">
-          {lockedStatus && <FaLock />} <FaPlayCircle /> 2min
+          {lockedStatus && <FaLock />} <FaPlayCircle />{' '}
+          {Math.round(duration / 60)}min
         </div>
       </div>
     </div>

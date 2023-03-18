@@ -5,11 +5,10 @@ import { Spinner } from '../../components/spinner/Spinner.component';
 import { LessonsList } from '../../components/lessons-list/LessonsList.component';
 
 import './Course.scss';
+import { getTotalLessonsDurationInMin } from './utils/utils';
 
 export const Course: FC = () => {
-  const courseData = useLoaderData() as ICourseItem;
-
-  console.log(courseData);
+  const { lessons } = useLoaderData() as ICourseItem;
 
   const { state } = useNavigation();
 
@@ -22,8 +21,12 @@ export const Course: FC = () => {
       <div className="course__main">Video frame + title + description</div>
       <div className="course__lessons">
         <div className="course__lessons-info">
-          <div className="course__lessons-progress">Lessons 3 / {1}</div>
-          <div className="course__lessons-timetotal">12min total</div>
+          <div className="course__lessons-progress">
+            Lessons 0 / {lessons.length}
+          </div>
+          <div className="course__lessons-timetotal">
+            {Math.trunc(getTotalLessonsDurationInMin(lessons))}min total
+          </div>
         </div>
         <LessonsList />
       </div>

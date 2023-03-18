@@ -7,13 +7,19 @@ import './LessonsList.scss';
 
 export const LessonsList: FC = () => {
   const { lessons } = useLoaderData() as ICourseItem;
-  console.log(lessons);
+
   return (
     <div className="lesson__list">
       {lessons.map((lesson, order) => {
-        const { id, status, title } = lesson;
+        const { id, status, title, duration } = lesson;
         return (
-          <LessonItem status={status} title={title} key={id} order={order} />
+          <LessonItem
+            status={status}
+            title={title}
+            key={id}
+            order={order}
+            duration={duration}
+          />
         );
       })}
     </div>

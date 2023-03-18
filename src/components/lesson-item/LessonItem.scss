@@ -26,12 +26,13 @@
 
 .lesson-viewed {
 	align-self: flex-start;
-	margin-top: 5px;
+	margin-top: 4px;
 	cursor: pointer;
 }
 
 .lesson__info {
 	display: flex;
+	row-gap: 2px;
 	flex-direction: column;
 	cursor: pointer;
 }
