@@ -46,7 +46,7 @@ export const fetchCourses = async () => {
   }
 };
 
-export const fetchCourseById = async (courseId: number | string) => {
+export const fetchCourseById = async (courseId: string) => {
   try {
     const token = await getToken();
 
