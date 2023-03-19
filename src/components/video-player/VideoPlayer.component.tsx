@@ -7,6 +7,9 @@ interface VideoPlayerProps {
   videoTitle: string;
   previewPoster: string;
   config?: Config;
+  isLight?: boolean;
+  controls?: boolean;
+  playing?: boolean;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -14,6 +17,9 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
   videoTitle,
   previewPoster,
   config,
+  isLight = true,
+  controls = true,
+  playing = true,
 }) => {
   return (
     <ReactPlayer
@@ -21,10 +27,9 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
       url={srcUrl}
       width="100%"
       height="100%"
-      controls
-      playing
-      onReady={() => {}}
-      light={<img src={previewPoster} alt={videoTitle} />}
+      controls={controls}
+      playing={playing}
+      light={isLight && <img src={previewPoster} alt={videoTitle} />}
       pip
       config={{
         file: {

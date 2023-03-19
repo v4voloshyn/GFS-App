@@ -28,8 +28,8 @@ export interface ICourseItem {
 
 export type CourseItemPreview = Pick<
   ICourseItem,
-  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating'
-> & { meta: Pick<IMeta, 'skills'> };
+  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating' | 'lessons'
+> & { meta: Pick<IMeta, 'skills' | 'courseVideoPreview'> };
 
 export interface VideoLesson {
   id: string;
