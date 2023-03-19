@@ -10,7 +10,6 @@ import './CourseList.scss';
 
 export const CourseList: FC = () => {
   const courses = useLoaderData() as CourseItemPreview[];
-  console.log('COURSES', courses);
 
   const [paginatedCourses, setPaginatedCourses] =
     useState<CourseItemPreview[]>(courses);
@@ -21,8 +20,15 @@ export const CourseList: FC = () => {
 
       <div className="courses">
         {paginatedCourses.map((course) => {
-          const { id, title, lessonsCount, meta, previewImageLink, rating } =
-            course;
+          const {
+            id,
+            title,
+            lessons,
+            lessonsCount,
+            meta,
+            previewImageLink,
+            rating,
+          } = course;
           return (
             <CourseItem
               key={id}
@@ -32,12 +38,13 @@ export const CourseList: FC = () => {
               rating={rating}
               lessonsCount={lessonsCount}
               meta={meta}
+              lessons={lessons}
             />
           );
         })}
       </div>
       <Pagination
-        itemsPerPage={4}
+        itemsPerPage={10}
         items={courses}
         setPaginatedCourses={setPaginatedCourses}
       />
