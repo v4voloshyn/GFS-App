@@ -14,18 +14,20 @@ export const CourseItem: FC<CourseItemPreview> = ({
   previewImageLink,
   lessonsCount,
   rating,
-  lessons,
   meta: { skills = [], courseVideoPreview },
 }) => {
   const [isCourseItemLoading, setIsCourseItemLoading] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
-  const navigate = useNavigate();
 
   const timeoutRef = useRef(0);
 
+  const navigate = useNavigate();
+
+  const videoPreviewLink = courseVideoPreview?.link;
+
   useEffect(() => {
-    if (isVideoPlaying) {
+    if (isVideoPlaying && videoPreviewLink) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -33,18 +35,19 @@ export const CourseItem: FC<CourseItemPreview> = ({
       timeoutRef.current = window.setTimeout(() => {
         console.log('hey');
         setShowVideoPlayer(true);
+        setShowVideoPlayer(true);
       }, 1000);
     }
 
     return () => clearTimeout(timeoutRef.current);
-  }, [isVideoPlaying]);
+  }, [isVideoPlaying, videoPreviewLink]);
 
   const stopVideoOnLeave = () => {
     setIsVideoPlaying(false);
     setShowVideoPlayer(false);
   };
 
-  const handleClick = (courseId: string): void => {
+  const handleWatchCourseClick = (courseId: string): void => {
     setIsCourseItemLoading(true);
     navigate(`course/${courseId}`);
   };
@@ -61,9 +64,11 @@ export const CourseItem: FC<CourseItemPreview> = ({
             previewPoster={`${previewImageLink}/cover.webp`}
             isLight={false}
             videoTitle={title}
-            srcUrl={courseVideoPreview.link}
+            srcUrl={videoPreviewLink}
             controls={false}
             muted
+            playing
+            onReady={() => {}}
           />
         ) : (
           <img src={`${previewImageLink}/cover.webp`} alt={title} />
@@ -80,7 +85,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
           <Button
             buttonText="Watch lessons"
             isLoading={isCourseItemLoading}
-            onClick={() => handleClick(id)}
+            onClick={() => handleWatchCourseClick(id)}
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
