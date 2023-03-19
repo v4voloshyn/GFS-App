@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import clsx from 'clsx';
-import { FaLock, FaPlayCircle } from 'react-icons/fa';
+import { FaLock, FaPlayCircle, FaUnlink } from 'react-icons/fa';
 
 import { VideoLesson } from '../../types/types';
 
@@ -30,7 +30,8 @@ export const LessonItem: FC<LessonItemProps> = ({
   previewImageLink,
 }) => {
   const lockedStatus = status === 'locked';
-  const isLessonActive = activeLessonVideoLink === link;
+  const noVideoLink = !link || link.length === 0;
+  const isLessonActive = link && activeLessonVideoLink === link;
   const activeLessonPreviewImage = `${previewImageLink}/lesson-${order}.webp`;
 
   const selectLessonToView = () => {
@@ -41,11 +42,13 @@ export const LessonItem: FC<LessonItemProps> = ({
   };
   const itemStyles = clsx(`lesson__item`, {
     lesson__item_active: isLessonActive,
-    lesson__item_locked: lockedStatus,
+    lesson__item_locked: lockedStatus || noVideoLink,
   });
 
   useEffect(() => {
     if (order === 1) {
+      console.log(link);
+
       handleChangeLessonData(link, activeLessonPreviewImage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +66,8 @@ export const LessonItem: FC<LessonItemProps> = ({
           {index}. {title}
         </div>
         <div className="lesson__description">
-          {lockedStatus && <FaLock />} <FaPlayCircle />{' '}
+          {lockedStatus && <FaLock />}
+          {noVideoLink && <FaUnlink />} <FaPlayCircle />
           {Math.round(duration / 60)}min
         </div>
       </button>
