@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
-import { CourseItemPreview, ICourseItem } from '../../types/types';
+import { CourseItemPreview } from '../../types/types';
 
 import './Pagination.scss';
 
@@ -24,10 +24,6 @@ export const Pagination: FC<PaginationProps> = ({
     return items.slice(itemOffset, endOffset);
   }, [endOffset, itemOffset, items]);
 
-  useEffect(() => {
-    setPaginatedCourses(currentPageCourses);
-  }, [currentPageCourses, setPaginatedCourses]);
-
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
@@ -35,7 +31,9 @@ export const Pagination: FC<PaginationProps> = ({
     setItemOffset(newOffset);
   };
 
-  console.log('>>>> render PAGINATION');
+  useEffect(() => {
+    setPaginatedCourses(currentPageCourses);
+  }, [currentPageCourses, setPaginatedCourses]);
 
   return (
     <ReactPaginate
