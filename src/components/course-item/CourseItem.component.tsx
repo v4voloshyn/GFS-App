@@ -1,8 +1,12 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+
 import { CourseItemPreview } from '../../types/types';
+
 import { SkillsList } from '../skills-list/SkillsList.component';
 import { Button } from '../UI/button/Button.component';
+import { VideoPlayer } from '../video-player/VideoPlayer.component';
 
 import './CourseItem.scss';
 
@@ -12,20 +16,64 @@ export const CourseItem: FC<CourseItemPreview> = ({
   previewImageLink,
   lessonsCount,
   rating,
-  meta: { skills = [] },
+  meta: { skills = [], courseVideoPreview },
 }) => {
   const [isCourseItemLoading, setIsCourseItemLoading] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+
+  const timeoutRef = useRef(0);
+
   const navigate = useNavigate();
 
-  const handleClick = (courseId: string): void => {
+  const videoPreviewLink = courseVideoPreview?.link;
+
+  useEffect(() => {
+    if (isVideoPlaying && videoPreviewLink) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = window.setTimeout(() => {
+        setShowVideoPlayer(true);
+        setShowVideoPlayer(true);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timeoutRef.current);
+  }, [isVideoPlaying, videoPreviewLink]);
+
+  const stopVideoOnLeave = () => {
+    setIsVideoPlaying(false);
+    setShowVideoPlayer(false);
+  };
+
+  const handleWatchCourseClick = (courseId: string): void => {
     setIsCourseItemLoading(true);
     navigate(`course/${courseId}`);
   };
 
   return (
     <div className="course-card card">
-      <div className="card-image">
-        <img src={`${previewImageLink}/cover.webp`} alt={title} />
+      <div
+        className="card-image"
+        onMouseEnter={() => setIsVideoPlaying(true)}
+        onMouseLeave={stopVideoOnLeave}
+      >
+        {showVideoPlayer ? (
+          <VideoPlayer
+            previewPoster={`${previewImageLink}/cover.webp`}
+            isLight={false}
+            videoTitle={title}
+            srcUrl={videoPreviewLink}
+            controls={false}
+            muted
+            playing
+            onReady={() => {}}
+          />
+        ) : (
+          <img src={`${previewImageLink}/cover.webp`} alt={title} />
+        )}
       </div>
       <div className="card-body">
         <div className="card-description">
@@ -38,12 +86,19 @@ export const CourseItem: FC<CourseItemPreview> = ({
           <Button
             buttonText="Watch lessons"
             isLoading={isCourseItemLoading}
-            onClick={() => handleClick(id)}
+            onClick={() => handleWatchCourseClick(id)}
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
             <div className="card-rating">
-              {rating ? `Rating: ${rating}/5` : 'Not rated'}
+              {rating ? (
+                <>
+                  Rating {rating}/5
+                  <FaStar className="star" />
+                </>
+              ) : (
+                'Not rated'
+              )}
             </div>
           </div>
         </div>

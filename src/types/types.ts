@@ -23,9 +23,22 @@ export interface ICourseItem {
   previewImageLink: string;
   rating: number;
   meta: IMeta;
+  lessons: VideoLesson[];
 }
 
 export type CourseItemPreview = Pick<
   ICourseItem,
-  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating'
-> & { meta: Pick<IMeta, 'skills'> };
+  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating' | 'lessons'
+> & { meta: Pick<IMeta, 'skills' | 'courseVideoPreview'> };
+
+export interface VideoLesson {
+  id: string;
+  title: string;
+  duration: number;
+  order: number;
+  type: string;
+  status: 'locked' | 'unlocked';
+  link: string;
+  previewImageLink: string;
+  meta: unknown | null;
+}

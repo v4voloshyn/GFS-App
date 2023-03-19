@@ -1,5 +1,7 @@
 import { FC } from 'react';
+
 import { IMeta } from '../../types/types';
+
 import './SkillsList.scss';
 
 interface SkillsListProps {

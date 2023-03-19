@@ -1,13 +1,16 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
-import { ICourseItem } from '../../types/types';
+
+import { CourseItemPreview } from '../../types/types';
 
 import './Pagination.scss';
 
 interface PaginationProps {
   itemsPerPage: number;
-  items: ICourseItem[];
-  setPaginatedCourses: React.Dispatch<React.SetStateAction<ICourseItem[]>>;
+  items: CourseItemPreview[];
+  setPaginatedCourses: React.Dispatch<
+    React.SetStateAction<CourseItemPreview[]>
+  >;
 }
 
 export const Pagination: FC<PaginationProps> = ({
@@ -22,18 +25,17 @@ export const Pagination: FC<PaginationProps> = ({
     return items.slice(itemOffset, endOffset);
   }, [endOffset, itemOffset, items]);
 
-  useEffect(() => {
-    setPaginatedCourses(currentPageCourses);
-  }, [currentPageCourses, setPaginatedCourses]);
-
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset = (selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  console.log('>>>> render PAGINATION');
+  useEffect(() => {
+    setPaginatedCourses(currentPageCourses);
+  }, [currentPageCourses, setPaginatedCourses]);
 
   return (
     <ReactPaginate

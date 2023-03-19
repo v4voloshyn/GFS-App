@@ -16,12 +16,12 @@
 - - ✅ Count of lessons, rating and skills list
 - - ✅ Footer
   - \*Extra:
-    - ⬜ Playing video on image hover
+    - ✅ Playing video on image hover
     <hr/>
 - ⬜ Single Course page:
-- - ⬜ Videoframe with src
-- - ⬜ Lessons list
-- - ⬜ Course description
+- - ✅ Videoframe with videoSrc
+- - ✅ Lessons list
+- - ✅ Course description
 - - ⬜ Save videoplaying progress
 - - ⬜ Save lessons learning progress
   - \*Extra:
@@ -35,8 +35,8 @@
 
 - ⬜ Handle API errors (network, Page 404 etc )
   - ⬜ Create @ErrorComponent on every or one @RootComponent to intercept Error throwing
-- ⬜ Mobile adaptive
-- ⬜ Video loading animation
+- ✅ Mobile adaptive
+- ⬜ \*Video loading animation + / -
 - ⬜ Test Coverage
 
 <hr/>
