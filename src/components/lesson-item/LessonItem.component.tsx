@@ -35,6 +35,7 @@ export const LessonItem: FC<LessonItemProps> = ({
   const selectLessonToView = () => {
     if (!lockedStatus) {
       handleChangeLessonData(link, activeLessonPreviewImage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
   const itemStyles = clsx(`lesson__item`, {

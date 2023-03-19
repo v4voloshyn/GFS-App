@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 
 import { ICourseItem } from '../../types/types';
@@ -27,6 +27,10 @@ export const Course: FC = () => {
     setLessonPreviewImgUrl(imagePreviewLink);
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   if (state === 'loading') {
     return <Spinner size="fullscreen" />;
   }
@@ -41,7 +45,7 @@ export const Course: FC = () => {
             previewPoster={`${lessonPreviewImgUrl}`}
           />
         </div>
-        <div className="course__description">Description here</div>
+        <div className="course__description">Descr</div>
       </div>
       <div className="course__lessons">
         <div className="course__lessons-info">

@@ -1,6 +1,6 @@
 .react-player__preview {
 	max-width: 100%;
-	max-height: fit-content;
+	height: 100%;
 
 	& img {
 		width: 100%;
@@ -23,5 +23,14 @@
 	& video {
 		display: flex;
 		align-items: center;
+	}
+}
+
+@media screen and (max-width: 996.98px) {
+	.player-wrapper {
+		min-height: 320px;
+		height: 100%;
+		width: 100%;
+		aspect-ratio: 4/3;
 	}
 }
