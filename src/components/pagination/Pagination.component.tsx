@@ -29,6 +29,7 @@ export const Pagination: FC<PaginationProps> = ({
   const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset = (selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
