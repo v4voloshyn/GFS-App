@@ -20,7 +20,7 @@
     <hr/>
 - ⬜ Single Course page:
 - - ⬜ Videoframe with src
-- - ⬜ Lessons list
+- - ✅ Lessons list
 - - ⬜ Course description
 - - ⬜ Save videoplaying progress
 - - ⬜ Save lessons learning progress
@@ -35,7 +35,7 @@
 
 - ⬜ Handle API errors (network, Page 404 etc )
   - ⬜ Create @ErrorComponent on every or one @RootComponent to intercept Error throwing
-- ⬜ Mobile adaptive
+- ✅ Mobile adaptive
 - ⬜ Video loading animation
 - ⬜ Test Coverage
 
