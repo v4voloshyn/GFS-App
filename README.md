@@ -16,7 +16,7 @@
 - - ✅ Count of lessons, rating and skills list
 - - ✅ Footer
   - \*Extra:
-    - ⬜ Playing video on image hover
+    - ✅ Playing video on image hover
     <hr/>
 - ⬜ Single Course page:
 - - ✅ Videoframe with src
