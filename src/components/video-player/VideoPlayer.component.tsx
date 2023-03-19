@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import ReactPlayer, { Config } from 'react-player';
+
 import './VideoPlayer.scss';
 
 interface VideoPlayerProps {
