@@ -10,6 +10,8 @@ interface VideoPlayerProps {
   isLight?: boolean;
   controls?: boolean;
   playing?: boolean;
+  volume?: number;
+  muted?: boolean;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -20,6 +22,8 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
   isLight = true,
   controls = true,
   playing = true,
+  volume = 0.5,
+  muted = false,
 }) => {
   return (
     <ReactPlayer
@@ -31,6 +35,8 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
       playing={playing}
       light={isLight && <img src={previewPoster} alt={videoTitle} />}
       pip
+      volume={volume}
+      muted={muted}
       config={{
         file: {
           forceHLS: true,

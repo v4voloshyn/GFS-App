@@ -63,6 +63,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
             videoTitle={title}
             srcUrl={courseVideoPreview.link}
             controls={false}
+            muted
           />
         ) : (
           <img src={`${previewImageLink}/cover.webp`} alt={title} />
