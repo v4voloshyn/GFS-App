@@ -1,5 +1,3 @@
-.course {}
-
 .course-wrapper {
 	display: flex;
 }
@@ -9,6 +7,10 @@
 	flex-direction: column;
 	flex: 1 1 auto;
 	min-height: 100vh;
+}
+
+.course__descr {
+	padding-right: 25px;
 }
 
 .course__lessons {
@@ -22,11 +24,6 @@
 	border-left: 1px solid var(--color-bg-disabled);
 }
 
-
-.course__lessons-info {}
-
-.course__lessons-progress {}
-
 .course__lessons-timetotal {
 	font-size: 12px;
 }
@@ -35,6 +32,10 @@
 	.course-wrapper {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.course__main {
+		min-height: 100%;
 	}
 
 	.course__lessons {
@@ -47,5 +48,9 @@
 		flex-direction: column;
 		flex: 0 0 250px;
 		border-left: 1px solid var(--color-bg-disabled);
+	}
+
+	.course__descr {
+		padding-right: inherit
 	}
 }

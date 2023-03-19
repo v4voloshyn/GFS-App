@@ -12,11 +12,20 @@ import './Course.scss';
 import { VideoPlayer } from '../../components/video-player/VideoPlayer.component';
 
 export const Course: FC = () => {
-  const { lessons, title } = useLoaderData() as ICourseItem;
+  const {
+    lessons,
+    title,
+    description,
+    meta: { slug },
+  } = useLoaderData() as ICourseItem;
   const [hlsUrl, setHlsUrl] = useState('');
   const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState('');
 
   const { state } = useNavigation();
+
+  const courseSlag = (slug[0].toUpperCase() + slug.slice(1))
+    .split('-')
+    .join(' ');
 
   const handleChangeLessonData = (
     videoSrc: string,
@@ -44,7 +53,11 @@ export const Course: FC = () => {
             previewPoster={`${lessonPreviewImgUrl}`}
           />
         </div>
-        <div className="course__description">Descr</div>
+        <div className="course__description">
+          <h1 className="course__title">{title}</h1>
+          <h4 className="course__slag">Slug: {courseSlag}</h4>
+          <p className="course__descr">{description}</p>
+        </div>
       </div>
       <div className="course__lessons">
         <div className="course__lessons-info">
