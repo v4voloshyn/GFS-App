@@ -1,38 +1,42 @@
 import { FC } from 'react';
-import { FaLock, FaPlayCircle } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
 import { ICourseItem } from '../../types/types';
 import { LessonItem } from '../lesson-item/LessonItem.component';
 import './LessonsList.scss';
 
 interface LessonsListProps {
-  handleChangeVideoUrl: (url: string) => void;
-  activeLessonLink: string;
+  handleChangeLessonData: (videoSrc: string, imagePreviewLink: string) => void;
+  activeLessonVideoLink: string;
 }
 
 export const LessonsList: FC<LessonsListProps> = ({
-  handleChangeVideoUrl,
-  activeLessonLink,
+  handleChangeLessonData,
+  activeLessonVideoLink,
 }) => {
   const { lessons } = useLoaderData() as ICourseItem;
 
   return (
     <div className="lesson__list">
-      {lessons.map((lesson, order) => {
-        const { id, status, title, duration, link } = lesson;
-        return (
-          <LessonItem
-            status={status}
-            title={title}
-            key={id}
-            order={order}
-            duration={duration}
-            handleChangeVideoUrl={handleChangeVideoUrl}
-            link={link}
-            activeLessonLink={activeLessonLink}
-          />
-        );
-      })}
+      {lessons
+        .sort((a, b) => a.order - b.order)
+        .map((lesson, index) => {
+          const { id, status, title, duration, link, previewImageLink, order } =
+            lesson;
+          return (
+            <LessonItem
+              key={id}
+              index={index + 1}
+              title={title}
+              status={status}
+              order={order}
+              duration={duration}
+              handleChangeLessonData={handleChangeLessonData}
+              link={link}
+              activeLessonVideoLink={activeLessonVideoLink}
+              previewImageLink={previewImageLink}
+            />
+          );
+        })}
     </div>
   );
 };

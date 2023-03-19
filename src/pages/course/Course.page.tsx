@@ -14,15 +14,17 @@ import { VideoPlayer } from '../../components/video-player/VideoPlayer.component
 
 export const Course: FC = () => {
   const { lessons, title } = useLoaderData() as ICourseItem;
-  const [hlsUrl, setHlsUrl] = useState(lessons[0].link);
-  const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState(
-    `${lessons[0].previewImageLink}/lesson-${1}.webp`
-  );
+  const [hlsUrl, setHlsUrl] = useState('');
+  const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState('');
 
   const { state } = useNavigation();
 
-  const handleChangeVideoUrl = (url: string): void => {
-    setHlsUrl(url);
+  const handleChangeLessonData = (
+    videoSrc: string,
+    imagePreviewLink: string
+  ): void => {
+    setHlsUrl(videoSrc);
+    setLessonPreviewImgUrl(imagePreviewLink);
   };
 
   if (state === 'loading') {
@@ -51,8 +53,8 @@ export const Course: FC = () => {
           </div>
         </div>
         <LessonsList
-          handleChangeVideoUrl={handleChangeVideoUrl}
-          activeLessonLink={hlsUrl}
+          handleChangeLessonData={handleChangeLessonData}
+          activeLessonVideoLink={hlsUrl}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import clsx from 'clsx';
 import { FaLock, FaPlayCircle } from 'react-icons/fa';
 import { VideoLesson } from '../../types/types';
@@ -6,36 +6,48 @@ import { VideoLesson } from '../../types/types';
 import './LessonItem.scss';
 
 interface LessonItemProps {
+  index: number;
   title: VideoLesson['title'];
   status: VideoLesson['status'];
   link: VideoLesson['link'];
   order: number;
   duration: VideoLesson['duration'];
-  handleChangeVideoUrl: (lessonUrl: string) => void;
-  activeLessonLink: string;
+  handleChangeLessonData: (videoSrc: string, imagePreviewLink: string) => void;
+  activeLessonVideoLink: string;
+  previewImageLink: string;
 }
 
 export const LessonItem: FC<LessonItemProps> = ({
+  index,
   status,
   title,
   link,
   order,
   duration,
-  handleChangeVideoUrl,
-  activeLessonLink,
+  handleChangeLessonData,
+  activeLessonVideoLink,
+  previewImageLink,
 }) => {
   const lockedStatus = status === 'locked';
-  const isLessonActive = activeLessonLink === link;
+  const isLessonActive = activeLessonVideoLink === link;
+  const activeLessonPreviewImage = `${previewImageLink}/lesson-${order}.webp`;
 
   const selectLessonToView = () => {
     if (!lockedStatus) {
-      handleChangeVideoUrl(link);
+      handleChangeLessonData(link, activeLessonPreviewImage);
     }
   };
   const itemStyles = clsx(`lesson__item`, {
     lesson__item_active: isLessonActive,
     lesson__item_locked: lockedStatus,
   });
+
+  useEffect(() => {
+    if (order === 1) {
+      handleChangeLessonData(link, activeLessonPreviewImage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={itemStyles}>
@@ -46,7 +58,7 @@ export const LessonItem: FC<LessonItemProps> = ({
         onClick={selectLessonToView}
       >
         <div className="lesson__title" title="">
-          {order + 1}. {title}
+          {index}. {title}
         </div>
         <div className="lesson__description">
           {lockedStatus && <FaLock />} <FaPlayCircle />{' '}
