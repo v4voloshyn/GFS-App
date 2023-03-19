@@ -4,26 +4,28 @@ import './VideoPlayer.scss';
 
 interface VideoPlayerProps {
   srcUrl: string;
-  videoTitle: string;
   previewPoster: string;
+  videoTitle?: string;
   config?: Config;
   isLight?: boolean;
   controls?: boolean;
   playing?: boolean;
   volume?: number;
   muted?: boolean;
+  onReady?: () => void;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
   srcUrl,
-  videoTitle,
   previewPoster,
+  videoTitle,
   config,
   isLight = true,
   controls = true,
   playing = true,
   volume = 0.5,
   muted = false,
+  onReady,
 }) => {
   return (
     <ReactPlayer
@@ -33,10 +35,14 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
       height="100%"
       controls={controls}
       playing={playing}
-      light={isLight && <img src={previewPoster} alt={videoTitle} />}
-      pip
+      light={isLight && previewPoster}
       volume={volume}
       muted={muted}
+      onReady={onReady}
+      onError={(error, data) =>
+        console.log('ERROR OBJECT', { errorStack: error, dataStack: data })
+      }
+      pip
       config={{
         file: {
           forceHLS: true,
