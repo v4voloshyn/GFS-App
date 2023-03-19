@@ -1,7 +1,10 @@
 import { FC } from 'react';
 import { useLoaderData } from 'react-router-dom';
+
 import { ICourseItem } from '../../types/types';
+
 import { LessonItem } from '../lesson-item/LessonItem.component';
+
 import './LessonsList.scss';
 
 interface LessonsListProps {

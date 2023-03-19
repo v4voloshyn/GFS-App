@@ -1,7 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+
 import { CourseItemPreview } from '../../types/types';
+
 import { SkillsList } from '../skills-list/SkillsList.component';
 import { Button } from '../UI/button/Button.component';
 import { VideoPlayer } from '../video-player/VideoPlayer.component';
@@ -33,7 +35,6 @@ export const CourseItem: FC<CourseItemPreview> = ({
       }
 
       timeoutRef.current = window.setTimeout(() => {
-        console.log('hey');
         setShowVideoPlayer(true);
         setShowVideoPlayer(true);
       }, 1000);

@@ -6,6 +6,7 @@ import { CourseItemPreview } from '../../types/types';
 
 import { CourseItem } from '../course-item/CourseItem.component';
 import { Pagination } from '../pagination/Pagination.component';
+
 import './CourseList.scss';
 
 export const CourseList: FC = () => {

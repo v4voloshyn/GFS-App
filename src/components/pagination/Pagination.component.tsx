@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
+
 import { CourseItemPreview } from '../../types/types';
 
 import './Pagination.scss';

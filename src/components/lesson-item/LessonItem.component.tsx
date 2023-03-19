@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import clsx from 'clsx';
 import { FaLock, FaPlayCircle } from 'react-icons/fa';
+
 import { VideoLesson } from '../../types/types';
 
 import './LessonItem.scss';

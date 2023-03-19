@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import { fetchCourseById, fetchCourses } from '../helpers';
 
 import { Layout } from '../components/layout/Layout.component';

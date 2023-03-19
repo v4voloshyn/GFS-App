@@ -3,11 +3,10 @@ import { FC, useState, useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 
 import { ICourseItem } from '../../types/types';
+import { getTotalLessonsDurationInMin } from './utils/utils';
 
 import { Spinner } from '../../components/spinner/Spinner.component';
 import { LessonsList } from '../../components/lessons-list/LessonsList.component';
-
-import { getTotalLessonsDurationInMin } from './utils/utils';
 
 import './Course.scss';
 import { VideoPlayer } from '../../components/video-player/VideoPlayer.component';
