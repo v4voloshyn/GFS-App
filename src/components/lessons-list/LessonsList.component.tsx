@@ -5,13 +5,21 @@ import { ICourseItem } from '../../types/types';
 import { LessonItem } from '../lesson-item/LessonItem.component';
 import './LessonsList.scss';
 
-export const LessonsList: FC = () => {
+interface LessonsListProps {
+  handleChangeVideoUrl: (url: string) => void;
+  activeLessonLink: string;
+}
+
+export const LessonsList: FC<LessonsListProps> = ({
+  handleChangeVideoUrl,
+  activeLessonLink,
+}) => {
   const { lessons } = useLoaderData() as ICourseItem;
 
   return (
     <div className="lesson__list">
       {lessons.map((lesson, order) => {
-        const { id, status, title, duration } = lesson;
+        const { id, status, title, duration, link } = lesson;
         return (
           <LessonItem
             status={status}
@@ -19,6 +27,9 @@ export const LessonsList: FC = () => {
             key={id}
             order={order}
             duration={duration}
+            handleChangeVideoUrl={handleChangeVideoUrl}
+            link={link}
+            activeLessonLink={activeLessonLink}
           />
         );
       })}

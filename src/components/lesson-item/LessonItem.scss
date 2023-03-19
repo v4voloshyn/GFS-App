@@ -22,6 +22,10 @@
 			right: 5px;
 		}
 	}
+
+	&_active {
+		background-color: var(--color-primary-light);
+	}
 }
 
 .lesson-viewed {
@@ -31,10 +35,17 @@
 }
 
 .lesson__info {
+	all: unset;
+	width: 100%;
 	display: flex;
 	row-gap: 2px;
 	flex-direction: column;
 	cursor: pointer;
+	padding-left: 5px;
+
+	&:focus {
+		border: 1px solid black;
+	}
 }
 
 .lesson__title {}
