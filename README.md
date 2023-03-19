@@ -19,7 +19,7 @@
     - ⬜ Playing video on image hover
     <hr/>
 - ⬜ Single Course page:
-- - ⬜ Videoframe with src
+- - ✅ Videoframe with src
 - - ✅ Lessons list
 - - ⬜ Course description
 - - ⬜ Save videoplaying progress
