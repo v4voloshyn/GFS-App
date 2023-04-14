@@ -26,11 +26,6 @@ export interface ICourseItem {
   lessons: VideoLesson[];
 }
 
-export type CourseItemPreview = Pick<
-  ICourseItem,
-  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating' | 'lessons'
-> & { meta: Pick<IMeta, 'skills' | 'courseVideoPreview'> };
-
 export interface VideoLesson {
   id: string;
   title: string;
@@ -42,3 +37,8 @@ export interface VideoLesson {
   previewImageLink: string;
   meta: unknown | null;
 }
+
+export type CourseItemPreview = Pick<
+  ICourseItem,
+  'id' | 'title' | 'previewImageLink' | 'lessonsCount' | 'rating' | 'lessons'
+> & { meta: Pick<IMeta, 'skills' | 'courseVideoPreview'> };

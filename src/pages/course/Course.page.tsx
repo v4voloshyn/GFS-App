@@ -1,15 +1,15 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import { FC, useState, useEffect } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 
-import { ICourseItem } from '../../types/types';
-import { getTotalLessonsDurationInMin } from './utils/utils';
-
 import { Spinner } from '../../components/spinner/Spinner.component';
 import { LessonsList } from '../../components/lessons-list/LessonsList.component';
+import { VideoPlayer } from '../../components/video-player/VideoPlayer.component';
+
+import { ICourseItem } from '../../types/types';
+
+import { formatSlug, getTotalLessonsDurationInMin } from './utils/utils';
 
 import './Course.scss';
-import { VideoPlayer } from '../../components/video-player/VideoPlayer.component';
 
 export const Course: FC = () => {
   const {
@@ -21,11 +21,9 @@ export const Course: FC = () => {
   const [hlsUrl, setHlsUrl] = useState('');
   const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState('');
 
-  const { state } = useNavigation();
+  const { state: pageLoadingStatus } = useNavigation();
 
-  const courseSlag = (slug[0].toUpperCase() + slug.slice(1))
-    .split('-')
-    .join(' ');
+  const courseSlag = formatSlug(slug);
 
   const handleChangeLessonData = (
     videoSrc: string,
@@ -39,7 +37,7 @@ export const Course: FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  if (state === 'loading') {
+  if (pageLoadingStatus === 'loading') {
     return <Spinner size="fullscreen" />;
   }
 

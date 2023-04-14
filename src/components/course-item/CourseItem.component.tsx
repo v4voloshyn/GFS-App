@@ -1,12 +1,12 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
+
+import { Button } from '../UI/button/Button.component';
+import { SkillsList } from '../skills-list/SkillsList.component';
+import { VideoPlayer } from '../video-player/VideoPlayer.component';
 
 import { CourseItemPreview } from '../../types/types';
-
-import { SkillsList } from '../skills-list/SkillsList.component';
-import { Button } from '../UI/button/Button.component';
-import { VideoPlayer } from '../video-player/VideoPlayer.component';
 
 import './CourseItem.scss';
 
@@ -18,7 +18,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
   rating,
   meta: { skills = [], courseVideoPreview },
 }) => {
-  const [isCourseItemLoading, setIsCourseItemLoading] = useState(false);
+  const [isCoursePageLoading, setIsCoursePageLoading] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
 
@@ -36,20 +36,19 @@ export const CourseItem: FC<CourseItemPreview> = ({
 
       timeoutRef.current = window.setTimeout(() => {
         setShowVideoPlayer(true);
-        setShowVideoPlayer(true);
       }, 1000);
     }
 
     return () => clearTimeout(timeoutRef.current);
   }, [isVideoPlaying, videoPreviewLink]);
 
-  const stopVideoOnLeave = () => {
+  const stopVideoOnMouseLeave = () => {
     setIsVideoPlaying(false);
     setShowVideoPlayer(false);
   };
 
-  const handleWatchCourseClick = (courseId: string): void => {
-    setIsCourseItemLoading(true);
+  const goToCoursePage = (courseId: string): void => {
+    setIsCoursePageLoading(true);
     navigate(`course/${courseId}`);
   };
 
@@ -58,7 +57,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
       <div
         className="card-image"
         onMouseEnter={() => setIsVideoPlaying(true)}
-        onMouseLeave={stopVideoOnLeave}
+        onMouseLeave={stopVideoOnMouseLeave}
       >
         {showVideoPlayer ? (
           <VideoPlayer
@@ -85,8 +84,8 @@ export const CourseItem: FC<CourseItemPreview> = ({
         <div className="card-footer">
           <Button
             buttonText="Watch lessons"
-            isLoading={isCourseItemLoading}
-            onClick={() => handleWatchCourseClick(id)}
+            isLoading={isCoursePageLoading}
+            onClick={() => goToCoursePage(id)}
           />
           <div className="card-footer_bottom">
             <div className="card-lessons">Lessons: {lessonsCount}</div>
