@@ -25,7 +25,7 @@ export const Pagination: FC<PaginationProps> = ({
     return items.slice(itemOffset, endOffset);
   }, [endOffset, itemOffset, items]);
 
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const totalPageCount = Math.ceil(items.length / itemsPerPage);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     const newOffset = (selected * itemsPerPage) % items.length;
@@ -43,7 +43,7 @@ export const Pagination: FC<PaginationProps> = ({
       nextLabel="Next >"
       onPageChange={handlePageClick}
       pageRangeDisplayed={3}
-      pageCount={pageCount}
+      pageCount={totalPageCount}
       previousLabel="< Previous"
       renderOnZeroPageCount={() => null}
       activeClassName="page-active"
