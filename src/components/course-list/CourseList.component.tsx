@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useMemo, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import { CourseItem } from '../course-item/CourseItem.component';
@@ -9,12 +9,18 @@ import { CourseItemPreview } from '../../types/types';
 import './CourseList.scss';
 
 export const CourseList: FC = () => {
+  const COURSES_PER_PAGE_COUNT = 10;
   const courses = useLoaderData() as CourseItemPreview[];
+  const [paginatedCourses, setPaginatedCourses] = useState(courses);
+  const [startOffset, setStartOffset] = useState(0);
+  const endOffset = startOffset + COURSES_PER_PAGE_COUNT;
+  const totalPageCount = useMemo(() => {
+    return Math.ceil(courses.length / COURSES_PER_PAGE_COUNT);
+  }, [courses.length]);
 
-  const [paginatedCourses, setPaginatedCourses] =
-    useState<CourseItemPreview[]>(courses);
-
-  const showCoursesPerPageCount = 10;
+  useEffect(() => {
+    setPaginatedCourses(courses.slice(startOffset, endOffset));
+  }, [startOffset, endOffset, courses]);
 
   return (
     <div className="course-list">
@@ -46,9 +52,9 @@ export const CourseList: FC = () => {
         })}
       </div>
       <Pagination
-        itemsPerPage={showCoursesPerPageCount}
-        items={courses}
-        setPaginatedCourses={setPaginatedCourses}
+        totalPageCount={totalPageCount}
+        setStartOffset={setStartOffset}
+        itemsPerPage={COURSES_PER_PAGE_COUNT}
       />
     </div>
   );
