@@ -2,22 +2,22 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 
-import { Button } from '../UI/button/Button.component';
+import { Button } from '../common/UI/button/Button.component';
 import { SkillsList } from '../skills-list/SkillsList.component';
 import { VideoPlayer } from '../video-player/VideoPlayer.component';
 
-import { CourseItemPreview } from '../../types/types';
+import { CourseItemPreview } from '../../@types/types';
 
 import './CourseItem.scss';
 
-export const CourseItem: FC<CourseItemPreview> = ({
-  id,
-  title,
-  previewImageLink,
-  lessonsCount,
-  rating,
-  meta: { skills = [], courseVideoPreview },
-}) => {
+interface ICourseItemProps {
+  courseData: CourseItemPreview;
+}
+
+export const CourseItem: FC<ICourseItemProps> = ({ courseData }) => {
+  const { id, title, lessonsCount, meta, previewImageLink, rating } =
+    courseData;
+  const { skills, courseVideoPreview } = meta;
   const [isCoursePageLoading, setIsCoursePageLoading] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
@@ -29,6 +29,8 @@ export const CourseItem: FC<CourseItemPreview> = ({
   const videoPreviewLink = courseVideoPreview?.link;
 
   useEffect(() => {
+    const SHOW_VIDEO_DELAY_MS = 1000;
+
     if (isVideoPlaying && videoPreviewLink) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -36,11 +38,15 @@ export const CourseItem: FC<CourseItemPreview> = ({
 
       timeoutRef.current = window.setTimeout(() => {
         setShowVideoPlayer(true);
-      }, 1000);
+      }, SHOW_VIDEO_DELAY_MS);
     }
 
     return () => clearTimeout(timeoutRef.current);
   }, [isVideoPlaying, videoPreviewLink]);
+
+  const startVideoOnMouseEnter = () => {
+    setIsVideoPlaying(true);
+  };
 
   const stopVideoOnMouseLeave = () => {
     setIsVideoPlaying(false);
@@ -56,7 +62,7 @@ export const CourseItem: FC<CourseItemPreview> = ({
     <div className="course__card card">
       <div
         className="card__image"
-        onMouseEnter={() => setIsVideoPlaying(true)}
+        onMouseEnter={startVideoOnMouseEnter}
         onMouseLeave={stopVideoOnMouseLeave}
       >
         {showVideoPlayer ? (

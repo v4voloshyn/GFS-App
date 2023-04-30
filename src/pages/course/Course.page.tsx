@@ -1,15 +1,11 @@
 import { FC, useState, useEffect, useCallback } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 
-import { Spinner } from '../../components/spinner/Spinner.component';
+import { Spinner } from '../../components/common/UI/spinner/Spinner.component';
 import { LessonsList } from '../../components/lessons-list/LessonsList.component';
 import { VideoPlayer } from '../../components/video-player/VideoPlayer.component';
 
-import {
-  ICourseItem,
-  VideoLesson,
-  VideoPlayerSrcLinks,
-} from '../../types/types';
+import { ICourse, IVideoLesson, VideoPlayerSrcLinks } from '../../@types/types';
 
 import {
   formatSlug,
@@ -25,16 +21,17 @@ export const Course: FC = () => {
     title,
     description,
     meta: { slug },
-  } = useLoaderData() as ICourseItem;
+  } = useLoaderData() as ICourse;
   const [hlsUrl, setHlsUrl] = useState('');
   const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState('');
 
   const { state: pageLoadingStatus } = useNavigation();
 
   const courseSlug = formatSlug(slug);
+  const totalDurationInMin = getTotalLessonsDurationInMin(lessons);
 
-  const firstLessonByOrderLinks = useCallback(
-    (lessonsList: VideoLesson[]): VideoPlayerSrcLinks => {
+  const getLinksOfFirstLessonByOrder = useCallback(
+    (lessonsList: IVideoLesson[]): VideoPlayerSrcLinks => {
       const firstLesson = lessonsList.filter((lesson) => lesson.order === 1);
       const lessonImagePreviewLink = formatPreviewImageURL(
         firstLesson[0].previewImageLink,
@@ -45,22 +42,22 @@ export const Course: FC = () => {
     []
   );
 
-  const handleChangeLessonData = (
-    videoSrc: string,
-    imagePreviewLink: string
-  ): void => {
-    setHlsUrl(videoSrc);
-    setLessonPreviewImgUrl(imagePreviewLink);
-  };
+  const handleChangeLessonData = useCallback(
+    (videoSrc: string, imagePreviewLink: string): void => {
+      setHlsUrl(videoSrc);
+      setLessonPreviewImgUrl(imagePreviewLink);
+    },
+    []
+  );
 
   useEffect(() => {
-    handleChangeLessonData(...firstLessonByOrderLinks(lessons));
+    handleChangeLessonData(...getLinksOfFirstLessonByOrder(lessons));
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [firstLessonByOrderLinks, lessons]);
+  }, [getLinksOfFirstLessonByOrder, handleChangeLessonData, lessons]);
 
   if (pageLoadingStatus === 'loading') {
-    return <Spinner size="fullscreen" />;
+    return <Spinner variant="fullscreen" />;
   }
 
   return (
@@ -70,7 +67,7 @@ export const Course: FC = () => {
           <VideoPlayer
             srcUrl={hlsUrl}
             videoTitle={title}
-            previewPoster={`${lessonPreviewImgUrl}`}
+            previewPoster={lessonPreviewImgUrl}
           />
         </div>
         <div className="course__description">
@@ -85,7 +82,7 @@ export const Course: FC = () => {
             Lessons 0 / {lessons.length}
           </div>
           <div className="course__lessons-timetotal">
-            {Math.trunc(getTotalLessonsDurationInMin(lessons))}min total
+            {totalDurationInMin}min total
           </div>
         </div>
         <LessonsList
