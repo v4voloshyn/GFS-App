@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
-import { IMeta } from '../../types/types';
+import { ICourseMeta } from '../../@types/types';
 
 import './SkillsList.scss';
 
 interface SkillsListProps {
-  skillsList: IMeta['skills'];
+  skillsList: ICourseMeta['skills'];
 }
 
-export const SkillsList: FC<SkillsListProps> = ({ skillsList }) => {
+export const SkillsList: FC<SkillsListProps> = ({ skillsList = [] }) => {
   if (!skillsList.length) {
-    return <div>Secret inside the book</div>;
+    return <div className="skill__item">Secret inside the book</div>;
   }
 
   return (

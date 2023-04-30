@@ -4,17 +4,20 @@ import { useLoaderData } from 'react-router-dom';
 import { CourseItem } from '../course-item/CourseItem.component';
 import { Pagination } from '../pagination/Pagination.component';
 
-import { CourseItemPreview } from '../../types/types';
+import { CourseItemPreview } from '../../@types/types';
 
 import './CourseList.scss';
 
 export const CourseList: FC = () => {
-  const COURSES_PER_PAGE_COUNT = 10;
   const courses = useLoaderData() as CourseItemPreview[];
-  const [paginatedCourses, setPaginatedCourses] = useState(courses);
+  const [paginatedCourses, setPaginatedCourses] =
+    useState<CourseItemPreview[]>(courses);
   const [startOffset, setStartOffset] = useState(0);
-  const endOffset = startOffset + COURSES_PER_PAGE_COUNT;
-  const totalPageCount = useMemo(() => {
+
+  const COURSES_PER_PAGE_COUNT = 10;
+  const endOffset: number = startOffset + COURSES_PER_PAGE_COUNT;
+
+  const totalPageCount: number = useMemo(() => {
     return Math.ceil(courses.length / COURSES_PER_PAGE_COUNT);
   }, [courses.length]);
 
@@ -27,28 +30,7 @@ export const CourseList: FC = () => {
       <h1 className="course-list__title">Course List</h1>
       <div className="courses">
         {paginatedCourses.map((course) => {
-          const {
-            id,
-            title,
-            lessons,
-            lessonsCount,
-            meta,
-            previewImageLink,
-            rating,
-          } = course;
-
-          return (
-            <CourseItem
-              key={id}
-              id={id}
-              title={title}
-              previewImageLink={previewImageLink}
-              rating={rating}
-              lessonsCount={lessonsCount}
-              meta={meta}
-              lessons={lessons}
-            />
-          );
+          return <CourseItem key={course.id} courseData={course} />;
         })}
       </div>
       <Pagination
