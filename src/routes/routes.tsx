@@ -1,12 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Course } from '../pages/course/Course.page';
-import { Home } from '../pages/home/Home.page';
-import { ErrorPage } from '../pages/error/Error.page';
-
-import { Layout } from '../components/common/layout/Layout.component';
-
 import { getAllCourses, getCourseById } from '../api/courses/courses.api';
+import { Layout } from '../components/common/layout/Layout.component';
+import { Course } from '../pages/course/Course.page';
+import { ErrorPage } from '../pages/error/Error.page';
+import { Home } from '../pages/home/Home.page';
 
 export const router = createBrowserRouter([
   {

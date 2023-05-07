@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Mock, vi } from 'vitest';
+
 import { Button } from './Button.component';
 
 vi.mock('../spinner/Spinner.component', () => ({
@@ -28,9 +29,7 @@ describe('Button component', () => {
   it('calls the onClick function when clicked', async () => {
     render(<Button onClick={mockOnClick} />);
     const button = screen.getByRole('button');
-
     await userEvent.click(button);
-
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 
@@ -49,7 +48,7 @@ describe('Button component', () => {
     const { rerender } = render(<Button onClick={mockOnClick} />);
     const button = screen.getByRole('button');
 
-    fireEvent.click(button);
+    await userEvent.click(button);
     rerender(<Button onClick={mockOnClick} isLoading />);
 
     expect(mockOnClick).toHaveBeenCalled();

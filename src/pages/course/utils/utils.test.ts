@@ -1,10 +1,10 @@
+import { IVideoLesson } from '../../../@types/types';
+
 import {
   getTotalLessonsDurationInMin,
   formatSlug,
   formatPreviewImageURL,
 } from './utils';
-
-import { IVideoLesson } from '../../../@types/types';
 
 describe('Course utils', () => {
   type LessonsListDurationType = Pick<IVideoLesson, 'duration'>[];

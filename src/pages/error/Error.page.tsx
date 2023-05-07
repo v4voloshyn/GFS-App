@@ -1,6 +1,6 @@
+import { AxiosError } from 'axios';
 import { FC } from 'react';
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom';
-import { AxiosError } from 'axios';
 
 import { Layout } from '../../components/common/layout/Layout.component';
 
