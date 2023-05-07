@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import { instance } from './instance';
 
-type CustomErrorResponse = {
+export type CustomErrorResponse = {
   message: string;
   statusCode: number;
 };
@@ -22,9 +22,8 @@ export const getRequest = async <T>(
 
     return request.data;
   } catch (requestError) {
-    const axiosError = requestError as AxiosError<CustomErrorResponse>;
-
-    if (axiosError) {
+    if (requestError instanceof AxiosError) {
+      const axiosError = requestError as AxiosError<CustomErrorResponse>;
       const errorObj = {
         statusCode: axiosError.response?.data.statusCode,
         message: axiosError.response?.data.message,
