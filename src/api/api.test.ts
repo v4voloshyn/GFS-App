@@ -19,7 +19,7 @@ describe('getRequest', () => {
     const axiosResponse = { data: fakeSingleCourse };
     (instance.get as Mock).mockResolvedValue(axiosResponse);
 
-    const result = await getRequest(fakeEndpoint, fakeParams);
+    const response = await getRequest(fakeEndpoint, fakeParams);
 
     expect(instance.get).toHaveBeenCalledTimes(1);
     expect(instance.get).toHaveBeenCalledWith(fakeEndpoint, {
@@ -28,7 +28,7 @@ describe('getRequest', () => {
         'Content-Type': 'application/json',
       },
     });
-    expect(result).toEqual(fakeSingleCourse);
+    expect(response).toEqual(fakeSingleCourse);
   });
 
   it('should throw an error if the request fails with an Axios error', async () => {

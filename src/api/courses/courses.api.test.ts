@@ -1,7 +1,6 @@
-import { Mock, vi } from 'vitest';
+import { vi } from 'vitest';
 
 import { fakeCourses, fakeSingleCourse } from '../../test/mock-data';
-import { getRequest } from '../api';
 
 import { getAllCourses, getCourseById } from './courses.api';
 
@@ -25,6 +24,7 @@ describe('getCourseById', () => {
 
     const result = await getCourseById(courseId);
 
+    expect(getCourseById).toHaveBeenCalledTimes(1);
     expect(result).toEqual(fakeSingleCourse);
   });
 });
