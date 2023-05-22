@@ -1,4 +1,18 @@
-## HW-1 Clean code principe's
+# GFS App (Online courses)
+
+## 🚀 Current version of the app you can see here: [Live App on Vercel](https://gfs-app.vercel.app/)
+
+<br/>
+
+## 🔴Warn👇👇👇
+
+### To ensure correct functioning of the application you need to download this extension: [Home page](https://mybrowseraddon.com/access-control-allow-origin.html) to allow CORS access to the API of the App. This extension available for [Google Chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf) | [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/) | [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/bhjepjpgngghppolkjdhckmnfphffdag)
+
+<br/>
+
+> 💡**NOTE**: The current version of the [Live App](https://gfs-app.vercel.app/) does not always match the main (production) branch, as it is synchronized with some functionality lagging (or leading) with the other repository. [Live App](https://gfs-app.vercel.app/) may contain some experimental features that have not been fully or well tested or may be under continuous development, as for example, the Chat module on WebSockets.
+
+<br/>
 
 #### 📝 **TODO**:
 
@@ -21,15 +35,15 @@
     - ✅ Playing video on image hover
     <hr/>
 - ⬜ Single Course page:
-- - ✅ Videoframe with videoSrc
+- - ✅ Video frame with videoSrc
 - - ✅ Lessons list
 - - ✅ Course description
-- - ⬜ Save videoplaying progress
+- - ⬜ Save video playing progress
 - - ⬜ Save lessons learning progress
   - \*Extra:
   - ⬜ PIP (Picture-In-Picture) in right bottom corner
   - ⬜ Changing video playing speed (use any keyCode)
-    - ⬜ Put this information in videoframe
+    - ⬜ Put this information in video frame
 
   <hr/>
 
