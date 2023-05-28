@@ -9,7 +9,7 @@ import { Switch } from './theme-switcher/Switch.component';
 
 import './Header.scss';
 
-const headerAnimations = {
+const headerAnimation = {
   initial: { opacity: 0, y: -20 },
   animate: {
     opacity: 1,
@@ -24,7 +24,7 @@ export const Header: FC = () => {
   return (
     <motion.div
       className="header"
-      variants={headerAnimations}
+      variants={headerAnimation}
       initial="initial"
       whileInView="animate"
       viewport={{ once: true }}

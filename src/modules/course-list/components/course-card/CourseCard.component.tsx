@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FC, useEffect, useRef, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -57,8 +58,23 @@ export const CourseCard: FC<Props> = ({ courseData }) => {
     navigate(`course/${courseId}`);
   };
 
+  const COURSE_CARD_ANIMATIONS = {
+    initial: { opacity: 0, y: 100 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.1, duration: 0.5 },
+    },
+  };
+
   return (
-    <div className="course__card card">
+    <motion.div
+      className="course__card card"
+      variants={COURSE_CARD_ANIMATIONS}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       <div
         className="card__image"
         onMouseEnter={startVideoOnMouseEnter}
@@ -108,6 +124,6 @@ export const CourseCard: FC<Props> = ({ courseData }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

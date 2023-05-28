@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FC, useState, useEffect, useCallback } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 
@@ -63,8 +64,19 @@ export const SingleCourse: FC = () => {
     return <Spinner variant="fullscreen" />;
   }
 
+  const singleCourseAnimation = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 20, transition: { delay: 0.2, duration: 0.5 } },
+  };
+
   return (
-    <div className="course course__wrapper">
+    <motion.div
+      className="course course__wrapper"
+      variants={singleCourseAnimation}
+      initial="hidden"
+      animate="visible"
+      viewport={{ once: true }}
+    >
       <div className="course__main">
         <div className="player__wrapper">
           <VideoPlayer
@@ -93,6 +105,6 @@ export const SingleCourse: FC = () => {
           activeLessonVideoLink={hlsUrl}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };

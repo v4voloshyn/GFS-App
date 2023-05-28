@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FC, useState, useMemo, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
@@ -29,9 +30,21 @@ export const CourseList: FC = () => {
     setPaginatedCourses(courses.slice(startOffset, endOffset));
   }, [startOffset, endOffset, courses]);
 
+  const courseHeaderAnimation = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { delay: 0.1, duration: 0.5 } },
+  };
+
   return (
     <div className="course-list">
-      <h1 className="course-list__title">Course List</h1>
+      <motion.h1
+        className="course-list__title"
+        variants={courseHeaderAnimation}
+        initial="initial"
+        animate="animate"
+      >
+        Course List
+      </motion.h1>
       <div className="courses">
         {paginatedCourses.map((course) => (
           <CourseCard key={course.id} courseData={course} />
