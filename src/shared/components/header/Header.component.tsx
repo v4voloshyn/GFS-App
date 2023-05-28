@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FC } from 'react';
 import { FaUserGraduate } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,11 +9,26 @@ import { Switch } from './theme-switcher/Switch.component';
 
 import './Header.scss';
 
+const headerAnimations = {
+  initial: { opacity: 0, y: -20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.2, duration: 0.5 },
+  },
+};
+
 export const Header: FC = () => {
   const { theme, toggleTheme } = useThemeContext();
 
   return (
-    <div className="header">
+    <motion.div
+      className="header"
+      variants={headerAnimations}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
+    >
       <Link to="/">
         <div className="logo">
           <img
@@ -29,6 +45,6 @@ export const Header: FC = () => {
         <FaUserGraduate className="user__avatar" />
         <span className="user__name">User Name</span>
       </div>
-    </div>
+    </motion.div>
   );
 };
