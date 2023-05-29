@@ -7,10 +7,26 @@ import { Modal } from '../../shared/components/modal/Modal.component';
 import { Chat } from '../chat/Chat.module';
 
 import { CourseItemPreview } from './@types/types';
-import { CourseCard } from './components/course-card/CourseCard.component';
+import { MCourseCard } from './components/course-card/CourseCard.component';
 import { Pagination } from './components/pagination/Pagination.component';
 
 import './CourseList.scss';
+
+const componentAnimations = {
+  initial: { opacity: 0, y: 20 },
+  onScreen: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1, duration: 0.5 },
+  },
+  titleInit: {
+    opacity: 0,
+  },
+  titleOnScreen: {
+    opacity: 1,
+    transition: { delay: 0.1, duration: 0.5 },
+  },
+};
 
 export const CourseList: FC = () => {
   const courses = useLoaderData() as CourseItemPreview[];
@@ -30,24 +46,27 @@ export const CourseList: FC = () => {
     setPaginatedCourses(courses.slice(startOffset, endOffset));
   }, [startOffset, endOffset, courses]);
 
-  const courseHeaderAnimation = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { delay: 0.1, duration: 0.5 } },
-  };
-
   return (
     <div className="course-list">
       <motion.h1
         className="course-list__title"
-        variants={courseHeaderAnimation}
-        initial="initial"
-        animate="animate"
+        variants={componentAnimations}
+        initial="titleInit"
+        whileInView="titleOnScreen"
+        viewport={{ once: true }}
       >
         Course List
       </motion.h1>
       <div className="courses">
         {paginatedCourses.map((course) => (
-          <CourseCard key={course.id} courseData={course} />
+          <MCourseCard
+            key={course.id}
+            courseData={course}
+            variants={componentAnimations}
+            initial="initial"
+            whileInView="onScreen"
+            viewport={{ once: true, amount: 0.2 }}
+          />
         ))}
       </div>
       <Pagination
