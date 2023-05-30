@@ -1,0 +1,110 @@
+import { motion } from 'framer-motion';
+import { FC, useState, useEffect, useCallback } from 'react';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+
+import {
+  ICourse,
+  IVideoLesson,
+  VideoPlayerSrcLinks,
+} from '../../shared/@types/types';
+import { Spinner } from '../../shared/UI/spinner/Spinner.component';
+import { VideoPlayer } from '../../shared/components/video-player/VideoPlayer.component';
+
+import { LessonsList } from './components/lessons-list/LessonsList.component';
+import {
+  formatSlug,
+  getTotalLessonsDurationInMin,
+  formatPreviewImageURL,
+} from './utils/utils';
+
+import './SingleCourse.scss';
+
+const componentAnimations = {
+  hidden: { opacity: 0, y: 50 },
+  onScreen: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5 } },
+};
+
+export const SingleCourse: FC = () => {
+  const {
+    lessons,
+    title,
+    description,
+    meta: { slug },
+  } = useLoaderData() as ICourse;
+  const [hlsUrl, setHlsUrl] = useState('');
+  const [lessonPreviewImgUrl, setLessonPreviewImgUrl] = useState('');
+
+  const { state: pageLoadingStatus } = useNavigation();
+
+  const courseSlug = formatSlug(slug);
+  const totalDurationInMin = getTotalLessonsDurationInMin(lessons);
+
+  const getLinksOfFirstLessonByOrder = useCallback(
+    (lessonsList: IVideoLesson[]): VideoPlayerSrcLinks => {
+      const firstLesson = lessonsList.filter((lesson) => lesson.order === 1);
+      const lessonImagePreviewLink = formatPreviewImageURL(
+        firstLesson[0].previewImageLink,
+        1
+      );
+      return [firstLesson[0].link, lessonImagePreviewLink];
+    },
+    []
+  );
+
+  const handleChangeLessonData = useCallback(
+    (videoSrc: string, imagePreviewLink: string): void => {
+      setHlsUrl(videoSrc);
+      setLessonPreviewImgUrl(imagePreviewLink);
+    },
+    []
+  );
+
+  useEffect(() => {
+    handleChangeLessonData(...getLinksOfFirstLessonByOrder(lessons));
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [getLinksOfFirstLessonByOrder, handleChangeLessonData, lessons]);
+
+  if (pageLoadingStatus === 'loading') {
+    return <Spinner variant="fullscreen" />;
+  }
+
+  return (
+    <div className="course course__wrapper">
+      <motion.div
+        className="course__main"
+        variants={componentAnimations}
+        initial="hidden"
+        animate="onScreen"
+        viewport={{ once: true }}
+      >
+        <div className="player__wrapper">
+          <VideoPlayer
+            srcUrl={hlsUrl}
+            videoTitle={title}
+            previewPoster={lessonPreviewImgUrl}
+          />
+        </div>
+        <div className="course__description">
+          <h1 className="course__title">{title}</h1>
+          <h4 className="course__slag">Slug: {courseSlug}</h4>
+          <p className="course__descr">{description}</p>
+        </div>
+      </motion.div>
+      <div className="course__lessons">
+        <div className="course__lessons-info">
+          <div className="course__lessons-progress">
+            Progress 0 / {lessons.length}
+          </div>
+          <div className="course__lessons-timetotal">
+            {totalDurationInMin}min total
+          </div>
+        </div>
+        <LessonsList
+          handleChangeLessonData={handleChangeLessonData}
+          activeLessonVideoLink={hlsUrl}
+        />
+      </div>
+    </div>
+  );
+};
